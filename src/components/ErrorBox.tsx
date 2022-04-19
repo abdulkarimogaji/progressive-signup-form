@@ -1,18 +1,34 @@
 import { Box, Typography, Button, Stack, Paper, Grid } from "@mui/material";
-import { CheckSharp } from "@mui/icons-material";
+import { CheckSharp, ClearSharp } from "@mui/icons-material";
 
+type ErrorBoxProps = {
+  validation: {
+    message: string;
+    valid: boolean;
+  }[];
+};
 
-
-const ErrorBox = () => {
-    return <Box sx={{
+const ErrorBox = (props: ErrorBoxProps) => {
+  return (
+    <Box
+      sx={{
         backgroundColor: "lightgray",
         padding: "1rem",
-        borderRadius: "5px"
-    }} >
+        borderRadius: "5px",
+      }}
+    >
+      {props.validation.map((field, i) => (
         <Typography fontSize="0.8rem" color="InfoText" m={2}>
-            Email address must Be a valid email Address <CheckSharp color="success" fontSize="small" />
+          {field.message}
+          {field.valid ? (
+            <CheckSharp color="success" fontSize="small" />
+          ) : (
+            <ClearSharp color="error"/>
+          )}
         </Typography>
+      ))}
     </Box>
-}
+  );
+};
 
 export default ErrorBox;

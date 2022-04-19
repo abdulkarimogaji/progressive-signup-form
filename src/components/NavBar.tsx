@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom"
 const NavBar = () => {
   const navigate = useNavigate()
   const handleClick = () => {
-    navigate('/signup')
+    navigate('/signup?form_id=1')
   }
   return (
     <AppBar color="transparent" position="static">

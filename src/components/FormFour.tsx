@@ -1,10 +1,10 @@
 import { Box, Typography, Button, Stack, Paper, Grid, TextField } from "@mui/material";
 import ErrorBox from "./ErrorBox";
-const FormOne = () => {
+const FormFour = () => {
   const validation = [
     {
       message: "Email must be valid",
-      valid: false
+      valid: true
     }
   ]
   return (
@@ -18,7 +18,7 @@ const FormOne = () => {
         Email Address
       </Typography>
       <Stack spacing={3} p={3}>
-      <TextField variant="standard" label="Email Address" error={validation[0].valid} required></TextField>
+      <TextField variant="standard" label="Email Address" error required></TextField>
       <ErrorBox validation={validation}/>
 
       </Stack>
@@ -26,4 +26,4 @@ const FormOne = () => {
     </Box>
   );
 };
-export default FormOne;
+export default FormFour;

@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 const HomeIntro = () => {
   const navigate = useNavigate()
   const handleClick = () => {
-    navigate('/signup')
+    navigate('/signup?form_id=1')
   }
   return (
     <Box>
