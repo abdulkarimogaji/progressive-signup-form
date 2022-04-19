@@ -3,7 +3,7 @@ import ErrorBox from "./ErrorBox";
 const FormFour = () => {
   const validation = [
     {
-      message: "Email must be valid",
+      clause: "Email must be valid",
       valid: true
     }
   ]

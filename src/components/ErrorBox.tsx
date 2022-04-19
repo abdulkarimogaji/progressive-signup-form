@@ -1,11 +1,9 @@
 import { Box, Typography, Button, Stack, Paper, Grid } from "@mui/material";
 import { CheckSharp, ClearSharp } from "@mui/icons-material";
+import { myValidation } from "./StartPage"
 
 type ErrorBoxProps = {
-  validation: {
-    message: string;
-    valid: boolean;
-  }[];
+  validation: myValidation
 };
 
 const ErrorBox = (props: ErrorBoxProps) => {
@@ -19,7 +17,7 @@ const ErrorBox = (props: ErrorBoxProps) => {
     >
       {props.validation.map((field, i) => (
         <Typography fontSize="0.8rem" color="InfoText" m={2}>
-          {field.message}
+          {field.clause}
           {field.valid ? (
             <CheckSharp color="success" fontSize="small" />
           ) : (
