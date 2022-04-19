@@ -1,25 +1,15 @@
 import {
   Box,
   Typography,
-  Button,
   Stack,
-  Paper,
-  Grid,
   TextField,
 } from "@mui/material";
-import { FormOneState, myValidation } from "./StartPage";
-import ErrorBox from "./ErrorBox";
+import { FormOneState } from "../StartPage";
+import { validateEmail } from "./validations";
+import ErrorBox from "../ErrorBox";
 import React from "react";
 
-const validateEmail = (email: string): myValidation => {
-  const isNotEmpty = email !== ""
-  return [
-    {
-      clause: "email must be a valid email address",
-      valid: isNotEmpty,
-    },
-  ];
-};
+
 const FormOne = ({
   formData,
   setter,

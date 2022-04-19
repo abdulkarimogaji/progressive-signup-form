@@ -1,6 +1,6 @@
-import { Box, Typography, Button, Stack, Paper, Grid, TextField, Input } from "@mui/material";
-import ErrorBox from "./ErrorBox";
-import { FormThreeState } from "./StartPage";
+import { Box, Typography, Stack, Input } from "@mui/material";
+import ErrorBox from "../ErrorBox";
+import { FormThreeState } from "../StartPage";
 
 
 

@@ -1,13 +1,10 @@
-import { Box, Typography, Button, Stack, Paper, Grid } from "@mui/material";
+import { Box, Button, Stack, Paper, Grid } from "@mui/material";
 import { ArrowBack, ArrowForward } from "@mui/icons-material";
-import FormOne from "./FormOne";
-import FormTwo from "./FormTwo";
-import FormThree from "./FormThree";
-import FormFour from "./FormFour";
-import { anyError } from "./FormTwo";
+import { FormOne, FormTwo, FormThree } from "./Forms";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { NotFound } from "./404";
 import { useState } from "react";
+import { myValidation, anyError } from "./Forms/validations";
 
 const defaultFormOne = {
   email: "",
@@ -75,13 +72,6 @@ const defaultFormThree = {
     },
   ],
 };
-const validateForm = (id: number): boolean => {
-  return true;
-};
-export type myValidation = {
-  clause: string;
-  valid: boolean;
-}[];
 
 export type FormOneState = {
   email: string;
@@ -105,15 +95,18 @@ export type FormThreeState = {
 };
 
 const StartPage = () => {
+  // create states for each form
   const [formOneState, setFormOneState] =
     useState<FormOneState>(defaultFormOne);
   const [formTwoState, setFormTwoState] = useState(defaultFormTwo);
   const [formThreeState, setFormThreeState] = useState(defaultFormThree);
 
+  //get the formId passed as a query parameter
   const [searchParams, setSearchParams] = useSearchParams();
   const navigate = useNavigate();
   const formId = parseInt(searchParams.get("form_id")!);
 
+  // function for advancing to the next form.. prevents advance when errors
   const nextForm = () => {
     switch (formId) {
       case 1:
@@ -134,21 +127,21 @@ const StartPage = () => {
         }
         break;
       case 3:
-        if (anyError(formThreeState.passwordErr)){
-          alert('an error in input')
-          return
+        if (anyError(formThreeState.passwordErr)) {
+          alert("an error in input");
+          return;
         }
     }
 
-    const passed = validateForm(formId);
-    if (passed && formId === 4) {
+    if (formId === 4) {
       navigate("/");
       return;
-    }
-    if (passed) {
+    } else {
       setSearchParams({ form_id: (formId + 1).toString() });
     }
   };
+
+  // select the correct form that should be passed in the jsx
   const getCurrentForm = () => {
     switch (formId) {
       case 1:

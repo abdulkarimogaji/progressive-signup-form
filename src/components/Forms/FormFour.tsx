@@ -1,5 +1,5 @@
-import { Box, Typography, Button, Stack, Paper, Grid, TextField } from "@mui/material";
-import ErrorBox from "./ErrorBox";
+import { Box, Typography, Stack, TextField } from "@mui/material";
+import ErrorBox from "../ErrorBox";
 const FormFour = () => {
   const validation = [
     {

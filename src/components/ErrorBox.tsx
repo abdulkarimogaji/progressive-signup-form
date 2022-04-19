@@ -1,6 +1,6 @@
-import { Box, Typography, Button, Stack, Paper, Grid } from "@mui/material";
+import { Box, Typography} from "@mui/material";
 import { CheckSharp, ClearSharp } from "@mui/icons-material";
-import { myValidation } from "./StartPage"
+import { myValidation } from "./Forms/validations"
 
 type ErrorBoxProps = {
   validation: myValidation
