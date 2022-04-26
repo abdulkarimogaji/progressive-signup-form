@@ -14,7 +14,6 @@ import {
   setPhoneNumErrs,
 } from "../../features/user/userSlice";
 import ErrorBox from "../ErrorBox";
-import { FormTwoState } from "../StartPage";
 import {
   validateAddr,
   validatefirstName,
@@ -30,7 +29,7 @@ const FormTwo = () => {
   //   ...formData.lastNameErr,
   //   ...formData.phoneNumErr,
   // ];
-  const { firstName, lastName, phoneNum, address } = useSelector(
+  const { firstName, lastName, phoneNum } = useSelector(
     (state: RootState) => state.user.loginErrors
   );
 

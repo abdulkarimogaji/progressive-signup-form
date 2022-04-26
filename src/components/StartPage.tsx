@@ -3,107 +3,17 @@ import { ArrowBack, ArrowForward } from "@mui/icons-material";
 import { FormOne, FormTwo, FormThree } from "./Forms";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { NotFound } from "./404";
-import { useState } from "react";
-import { myValidation, anyError } from "./Forms/validations";
+import { anyError } from "./Forms/validations";
 import { useSelector } from "react-redux";
 import { RootState } from "../app/store";
 
-const defaultFormOne = {
-  email: "",
-  emailError: [
-    {
-      clause: "Email must be valid",
-      valid: false,
-    },
-    {
-      clause: "Email must not be empty",
-      valid: false,
-    },
-  ],
-};
-const defaultFormTwo = {
-  firstName: "",
-  lastName: "",
-  phoneNum: "",
-  address: "",
-  nickName: "",
-  firstNameErr: [
-    {
-      clause: "firstName must not be empty",
-      valid: false,
-    },
-  ],
-  lastNameErr: [
-    {
-      clause: "lastName must not be empty",
-      valid: false,
-    },
-  ],
-  phoneNumErr: [
-    {
-      clause: "phoneNum must not be empty",
-      valid: false,
-    },
-    {
-      clause: "phoneNum must only be digits",
-      valid: false,
-    },
-  ],
-  addressErr: [
-    {
-      clause: "Address must not be empty",
-      valid: false,
-    },
-    {
-      clause: "Address be more than 20 chracters",
-      valid: false,
-    },
-  ],
-};
 
-const defaultFormThree = {
-  password: "",
-  passwordErr: [
-    {
-      clause: "Password must be more than 6 characters Long",
-      valid: false,
-    },
-    {
-      clause: "Password must match",
-      valid: true,
-    },
-  ],
-};
-
-export type FormOneState = {
-  email: string;
-  emailError: myValidation;
-};
-export type FormTwoState = {
-  firstName: string;
-  lastName: string;
-  phoneNum: string;
-  address: string;
-  nickName: string;
-  firstNameErr: myValidation;
-  lastNameErr: myValidation;
-  phoneNumErr: myValidation;
-  addressErr: myValidation;
-};
-
-export type FormThreeState = {
-  password: string;
-  passwordErr: myValidation;
-};
 
 const StartPage = () => {
 
   const loginErrors = useSelector((state: RootState) => state.user.loginErrors)
   // create states for each form
-  const [formOneState, setFormOneState] =
-    useState<FormOneState>(defaultFormOne);
-  const [formTwoState, setFormTwoState] = useState(defaultFormTwo);
-  const [formThreeState, setFormThreeState] = useState(defaultFormThree);
+
 
   //get the formId passed as a query parameter
   const [searchParams, setSearchParams] = useSearchParams();

@@ -7,10 +7,8 @@ import {
 import { RootState } from '../../app/store'
 import { useSelector, useDispatch } from 'react-redux'
 import { setEmail, setEmailErrors } from '../../features/user/userSlice'
-import { FormOneState } from "../StartPage";
-import { validateEmail, myValidation, anyError } from "./validations";
+import { validateEmail, anyError } from "./validations";
 import ErrorBox from "../ErrorBox";
-import { useState } from "react";
 
 
 const FormOne = () => {

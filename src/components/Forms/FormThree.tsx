@@ -2,7 +2,6 @@ import { Box, Typography, Stack, Input } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../app/store";
 import ErrorBox from "../ErrorBox";
-import { FormThreeState } from "../StartPage";
 import { setPassword, setPasswordErrs } from "../../features/user/userSlice";
 
 
