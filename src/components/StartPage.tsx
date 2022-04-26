@@ -5,6 +5,8 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { NotFound } from "./404";
 import { useState } from "react";
 import { myValidation, anyError } from "./Forms/validations";
+import { useSelector } from "react-redux";
+import { RootState } from "../app/store";
 
 const defaultFormOne = {
   email: "",
@@ -95,6 +97,8 @@ export type FormThreeState = {
 };
 
 const StartPage = () => {
+
+  const loginErrors = useSelector((state: RootState) => state.user.loginErrors)
   // create states for each form
   const [formOneState, setFormOneState] =
     useState<FormOneState>(defaultFormOne);
@@ -110,24 +114,24 @@ const StartPage = () => {
   const nextForm = () => {
     switch (formId) {
       case 1:
-        if (anyError(formOneState.emailError)) {
+        if (anyError(loginErrors.email)) {
           alert("an error in input");
           return;
         }
         break;
       case 2:
         if (
-          anyError(formTwoState.addressErr) ||
-          anyError(formTwoState.firstNameErr) ||
-          anyError(formTwoState.lastNameErr) ||
-          anyError(formTwoState.phoneNumErr)
+          anyError(loginErrors.address) ||
+          anyError(loginErrors.firstName) ||
+          anyError(loginErrors.lastName) ||
+          anyError(loginErrors.phoneNum)
         ) {
           alert("an error in input");
           return;
         }
         break;
       case 3:
-        if (anyError(formThreeState.passwordErr)) {
+        if (anyError(loginErrors.password)) {
           alert("an error in input");
           return;
         }
@@ -145,12 +149,12 @@ const StartPage = () => {
   const getCurrentForm = () => {
     switch (formId) {
       case 1:
-        return <FormOne formData={formOneState} setter={setFormOneState} />;
+        return <FormOne />;
       case 2:
-        return <FormTwo formData={formTwoState} setter={setFormTwoState} />;
+        return <FormTwo />;
       case 3:
         return (
-          <FormThree formData={formThreeState} setter={setFormThreeState} />
+          <FormThree />
         );
       default:
         return <NotFound />;

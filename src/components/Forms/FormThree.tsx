@@ -1,20 +1,20 @@
 import { Box, Typography, Stack, Input } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../app/store";
 import ErrorBox from "../ErrorBox";
 import { FormThreeState } from "../StartPage";
+import { setPassword, setPasswordErrs } from "../../features/user/userSlice";
 
 
 
-const FormThree = ({formData, setter}: {
-  formData: FormThreeState;
-  setter: React.Dispatch<React.SetStateAction<FormThreeState>>;
-}) => {
+const FormThree = () => {
 
-
+  const password = useSelector((state: RootState) => state.user.password)
+  const passwordErrs = useSelector((state: RootState) => state.user.loginErrors.password)
+  const dispatch = useDispatch()
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     var val = e.currentTarget.value
-    setter(prev => {
-      return {...prev, password: val}
-    })
+    dispatch(setPassword(val))
   }
 
   const handleConfirmation = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -22,18 +22,16 @@ const FormThree = ({formData, setter}: {
     var validity = [
       {
         clause: "Password must be more than 6 characters",
-        valid: formData.password.length > 6
+        valid: password.length > 6
       },
       {
         clause: "Password must Match",
-        valid: val === formData.password
+        valid: val === password
       }
     ]
-    setter(prev => {
-      return {...prev, firstName: val, passwordErr: validity}
-    })
+    dispatch(setPasswordErrs(validity))
   }
-  const validation = formData.passwordErr
+
   return (
     <Box>
       <Typography
@@ -47,7 +45,7 @@ const FormThree = ({formData, setter}: {
       <Stack spacing={3} p={3}>
       <Input type="password" placeholder="Password" onChange={handlePasswordChange}/>
       <Input type="password" placeholder="Password Confirmation" onChange={handleConfirmation}/>
-      <ErrorBox validation={validation}/>
+      <ErrorBox validation={passwordErrs}/>
 
       </Stack>
 

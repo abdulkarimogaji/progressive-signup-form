@@ -4,26 +4,25 @@ import {
   Stack,
   TextField,
 } from "@mui/material";
+import { RootState } from '../../app/store'
+import { useSelector, useDispatch } from 'react-redux'
+import { setEmail, setEmailErrors } from '../../features/user/userSlice'
 import { FormOneState } from "../StartPage";
-import { validateEmail } from "./validations";
+import { validateEmail, myValidation, anyError } from "./validations";
 import ErrorBox from "../ErrorBox";
-import React from "react";
+import { useState } from "react";
 
 
-const FormOne = ({
-  formData,
-  setter,
-}: {
-  formData: FormOneState;
-  setter: React.Dispatch<React.SetStateAction<FormOneState>>;
-}) => {
-  const validation = formData.emailError;
+const FormOne = () => {
+  // const [email, setEmail] = useState("")
+  // const [emailErr, setEmailErr] = useState({} as myValidation)
+  const emailErr = useSelector((state: RootState) => state.user.loginErrors.email)
+  const dispatch = useDispatch()
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    var isValid = validateEmail(e.target.value);
-    setter((prev) => {
-      return { ...prev, email: e.target.value, emailError: isValid };
-    });
+    dispatch(setEmail(e.target.value))
+    var err = validateEmail(e.target.value);
+    dispatch(setEmailErrors(err))
   };
   return (
     <Box>
@@ -39,11 +38,11 @@ const FormOne = ({
         <TextField
           variant="standard"
           label="Email Address"
-          error={!formData.emailError[0].valid}
+          error={anyError(emailErr)}
           required
           onChange={handleChange}
         ></TextField>
-        <ErrorBox validation={validation} />
+        <ErrorBox validation={emailErr} />
       </Stack>
     </Box>
   );

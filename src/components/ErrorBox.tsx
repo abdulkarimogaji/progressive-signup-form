@@ -6,7 +6,7 @@ type ErrorBoxProps = {
   validation: myValidation
 };
 
-const ErrorBox = (props: ErrorBoxProps) => {
+const ErrorBox = ({validation}: ErrorBoxProps) => {
   return (
     <Box
       sx={{
@@ -15,7 +15,7 @@ const ErrorBox = (props: ErrorBoxProps) => {
         borderRadius: "5px",
       }}
     >
-      {props.validation.map((field, i) => (
+      {validation.length && validation.map((field, i) => (
         <Typography fontSize="0.8rem" color="InfoText" m={2}>
           {field.clause}
           {field.valid ? (
