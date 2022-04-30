@@ -4,7 +4,7 @@ import * as Yup from "yup";
 import { useSearchParams } from "react-router-dom";
 
 const validationSchema = Yup.object({
-  email: Yup.string().nullable()
+  email: Yup.string()
     .required("This field is required")
     .email("Must provide a valid email Address"),
 });
@@ -12,11 +12,13 @@ const validationSchema = Yup.object({
 
 const FormOne = () => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const prevParams = Object.fromEntries([...searchParams]);
+
   const initialState = {
     email: searchParams.get("email") ?? '',
   };
   const handleSubmit = (values: FormikValues) => {
-    setSearchParams({ form_id: "2", email: values.email });
+    setSearchParams({...prevParams,  form_id: "2", email: values.email }, {replace: true});
   };
   
   return (

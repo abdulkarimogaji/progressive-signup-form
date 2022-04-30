@@ -5,39 +5,41 @@ import * as Yup from "yup";
 
 import { useSearchParams } from "react-router-dom";
 
-
 const validationSchema = Yup.object({
   firstName: Yup.string().required("This field is required"),
   lastName: Yup.string().required("This field is required"),
-  address: Yup.string().required("This field is required").min(10),
+  address: Yup.string()
+    .required("This field is required")
+    .min(11, "Should be more than 10 characters"),
   phoneNum: Yup.string().required("This field is required"),
   nickName: Yup.string(),
 });
 
 const FormTwo = () => {
-
   const [searchParams, setSearchParams] = useSearchParams();
   const prevParams = Object.fromEntries([...searchParams]);
 
   const initialValues = {
-    firstName: searchParams.get("firstName") ?? '',
-    lastName: searchParams.get("lastName") ?? '',
-    Address: searchParams.get("address") ?? '',
-    nickName: searchParams.get("nickName") ?? '',
-    phoneNum: searchParams.get("phoneNum") ?? '',
+    firstName: searchParams.get("firstName") ?? "",
+    lastName: searchParams.get("lastName") ?? "",
+    address: searchParams.get("address") ?? "",
+    nickName: searchParams.get("nickName") ?? "",
+    phoneNum: searchParams.get("phoneNum") ?? "",
   };
 
-
   const handleSubmit = (values: FormikValues) => {
-    setSearchParams({
-      ...prevParams,
-      form_id: "3",
-      firstName: values.firstName,
-      lastName: values.lastName,
-      address: values.address,
-      phoneNum: values.phoneNum,
-      nickname: values.nickName,
-    }, {replace: true});
+    setSearchParams(
+      {
+        ...prevParams,
+        form_id: "3",
+        firstName: values.firstName,
+        lastName: values.lastName,
+        address: values.address,
+        phoneNum: values.phoneNum,
+        nickname: values.nickName,
+      },
+      { replace: true }
+    );
   };
   const goToPrevious = () => {
     setSearchParams({ ...prevParams, form_id: "1" }, { replace: true });
