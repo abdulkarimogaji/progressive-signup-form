@@ -1,3 +1,5 @@
+import { Box, Typography } from "@mui/material";
+
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
@@ -13,7 +15,7 @@ const initialValues = {
 const validationSchema = Yup.object({
   firstName: Yup.string().required("This field is required"),
   lastName: Yup.string().required("This field is required"),
-  address: Yup.string().required("This field is required").min(20),
+  address: Yup.string().required("This field is required").min(10),
   phoneNum: Yup.string().required("This field is required"),
   nickName: Yup.string(),
 });
@@ -26,29 +28,51 @@ const FormTwo = () => {
   };
 
   return (
-    <Formik
-      initialValues={initialValues}
-      onSubmit={handleSubmit}
-      validationSchema={validationSchema}
-    >
-      <Form>
-        <Field name="firstName" placeholder="First Name" />
-        <ErrorMessage name="firstName" />
-        <Field name="lastName" placeholder="Last Name" />
-        <ErrorMessage name="lastName" />
+    <Box>
+      <Typography
+        variant="h5"
+        fontWeight="bold"
+        color="secondary"
+        align="center"
+        gutterBottom
+      >
+        Personal Information
+      </Typography>
+      <Formik
+        initialValues={initialValues}
+        onSubmit={handleSubmit}
+        validationSchema={validationSchema}
+      >
+        <Form className="form-formik">
+          <Field name="firstName" placeholder="First Name" />
+          <Box className="error-box">
+            <ErrorMessage name="firstName" />
+          </Box>
 
-        <Field name="address" placeholder="Address" />
-        <ErrorMessage name="address" />
+          <Field name="lastName" placeholder="Last Name" />
+          <Box className="error-box">
+            <ErrorMessage name="lastName" />
+          </Box>
 
-        <Field name="phoneNum" placeholder="Phone Number" />
-        <ErrorMessage name="phoneNum" />
+          <Field name="address" placeholder="Address" />
+          <Box className="error-box">
+            <ErrorMessage name="address" />
+          </Box>
 
-        <Field name="nickName" placeholder="NickName" />
-        <ErrorMessage name="nickName" />
+          <Field name="phoneNum" placeholder="Phone Number" />
+          <Box className="error-box">
+            <ErrorMessage name="phoneNum" />
+          </Box>
 
-        <input type="submit" id="formSubmit" />
-      </Form>
-    </Formik>
+          <Field name="nickName" placeholder="NickName" />
+          <Box className="error-box">
+            <ErrorMessage name="nickName" />
+          </Box>
+
+          <input type="submit" id="formSubmit" className="submit-hidden" />
+        </Form>
+      </Formik>
+    </Box>
   );
 };
 export default FormTwo;

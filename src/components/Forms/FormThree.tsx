@@ -1,3 +1,4 @@
+import { Box, Typography } from "@mui/material";
 import { useSearchParams } from "react-router-dom";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
@@ -16,23 +17,38 @@ const FormThree = () => {
   };
 
   return (
-    <Formik
-      onSubmit={handleSubmit}
-      initialValues={initialValues}
-      validationSchema={validationSchema}
-    >
-      <Form>
-        <Field name="password" placeholder="password" type="password" />
-        <ErrorMessage name="password" />
-        <Field
-          name="password2"
-          placeholder="password confirmation"
-          type="password"
-        />
-        <ErrorMessage name="password2" />
-        <input type="submit" id="formSubmit" />
-      </Form>
-    </Formik>
+    <Box>
+      <Typography
+        variant="h5"
+        fontWeight="bold"
+        color="secondary"
+        align="center"
+        gutterBottom
+      >
+        Setup Password
+      </Typography>
+      <Formik
+        onSubmit={handleSubmit}
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+      >
+        <Form className="form-formik">
+          <Field name="password" placeholder="Password" type="password" />
+          <Box className="error-box">
+            <ErrorMessage name="password" />
+          </Box>
+          <Field
+            name="password2"
+            placeholder="Password confirmation"
+            type="password"
+          />
+          <Box className="error-box">
+            <ErrorMessage name="password2" />
+          </Box>
+          <input type="submit" id="formSubmit" className="submit-hidden" />
+        </Form>
+      </Formik>
+    </Box>
   );
 };
 export default FormThree;

@@ -62,7 +62,7 @@ const StartPage = () => {
                 )}
                 {formId <= 4 && (
                   <label htmlFor="formSubmit" className="btn">
-                    Next <ArrowForward />
+                    <span>NEXT</span> <ArrowForward />
                   </label>
                 )}
               </Stack>
