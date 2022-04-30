@@ -1,12 +1,13 @@
-import { Box, Button, Stack, Paper, Grid } from "@mui/material";
+import { Box, Stack, Paper, Grid } from "@mui/material";
 import { ArrowBack, ArrowForward } from "@mui/icons-material";
 import { FormOne, FormTwo, FormThree } from "./Forms";
 import { NotFound } from "./404";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 
 const StartPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const formId = parseInt(searchParams.get("form_id")!);
+  const navigate = useNavigate()
 
   // select the correct form that should be passed in the jsx
   const getCurrentForm = () => {
@@ -43,22 +44,9 @@ const StartPage = () => {
               <br />
               <Stack direction="row" justifyContent="space-between">
                 {formId !== 1 && (
-                  <Button
-                    sx={{
-                      borderRadius: "20px",
-                      paddingX: "2rem",
-                    }}
-                    variant="contained"
-                    size="large"
-                    color="secondary"
-                    startIcon={<ArrowBack />}
-                    onClick={() =>
-                      setSearchParams({ form_id: (formId - 1).toString() })
-                    }
-                  >
-                    {" "}
-                    Previous
-                  </Button>
+                  <label htmlFor="previousBtn" className="btn">
+                  <ArrowBack /> <span>Previous</span>
+                </label>
                 )}
                 {formId <= 4 && (
                   <label htmlFor="formSubmit" className="btn">
