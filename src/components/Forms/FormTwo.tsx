@@ -21,8 +21,34 @@ import {
   validatePhonenum,
   anyError,
 } from "./validations";
+import { Formik, Form, Field, ErrorMessage } from 'formik'
+import * as Yup from 'yup';
+
+import { useSearchParams } from 'react-router-dom'
+const initialValues = {
+  firstName: '',
+  lastName: '',
+  Address: '',
+  nickName: '',
+  phoneNum: ''
+}
+
+const validationSchema = Yup.object({
+  firstName: Yup.string().required('This field is required'),
+  lastName: Yup.string().required('This field is required'),
+  address: Yup.string().required('This field is required').min(20),
+  phoneNum: Yup.string().required('This field is required'),
+  nickName: Yup.string()
+  
+})
 
 const FormTwo = () => {
+  const [searchParams, setSearchParams] = useSearchParams()
+
+  const handleSubmit = () => {
+    console.log("Second Submit");
+    setSearchParams({form_id: '3'})
+  }
   // const validation = [
   //   ...formData.addressErr,
   //   ...formData.firstNameErr,
@@ -72,50 +98,70 @@ const FormTwo = () => {
   };
 
   return (
-    <Box>
-      <Typography
-        variant="h5"
-        color="secondary"
-        fontWeight="bold"
-        textAlign="center"
-      >
-        Personal Information
-      </Typography>
-      <Stack spacing={3} p={3}>
-        <TextField
-          variant="standard"
-          label="First Name"
-          error={anyError(firstName)}
-          required
-          onChange={handleFirstNameChange}
-        ></TextField>
-        <TextField
-          variant="standard"
-          label="Last Name"
-          error={anyError(lastName)}
-          required
-          onChange={handleLastNameChange}
-        ></TextField>
-        <TextField
-          variant="standard"
-          label="Phone Number"
-          error={anyError(phoneNum)}
-          required
-          onChange={handlePhoneNumChange}
-        ></TextField>
-        <TextField
-          variant="standard"
-          label="Nickname"
-          onChange={handleNickNameChange}
-        ></TextField>
-        <TextField
-          variant="standard"
-          label="Address"
-          onChange={handleAddrChange}
-        ></TextField>
-        <ErrorBox validation={loginErrors} />
-      </Stack>
-    </Box>
+    // <Box>
+    //   <Typography
+    //     variant="h5"
+    //     color="secondary"
+    //     fontWeight="bold"
+    //     textAlign="center"
+    //   >
+    //     Personal Information
+    //   </Typography>
+    //   <Stack spacing={3} p={3}>
+    //     <TextField
+    //       variant="standard"
+    //       label="First Name"
+    //       error={anyError(firstName)}
+    //       required
+    //       onChange={handleFirstNameChange}
+    //     ></TextField>
+    //     <TextField
+    //       variant="standard"
+    //       label="Last Name"
+    //       error={anyError(lastName)}
+    //       required
+    //       onChange={handleLastNameChange}
+    //     ></TextField>
+    //     <TextField
+    //       variant="standard"
+    //       label="Phone Number"
+    //       error={anyError(phoneNum)}
+    //       required
+    //       onChange={handlePhoneNumChange}
+    //     ></TextField>
+    //     <TextField
+    //       variant="standard"
+    //       label="Nickname"
+    //       onChange={handleNickNameChange}
+    //     ></TextField>
+    //     <TextField
+    //       variant="standard"
+    //       label="Address"
+    //       onChange={handleAddrChange}
+    //     ></TextField>
+    //     <ErrorBox validation={loginErrors} />
+    //   </Stack>
+    // </Box>
+    <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={validationSchema}>
+      <Form>
+      <Field name="firstName" placeholder="First Name" />
+      <ErrorMessage name="firstName" />
+      <Field name="lastName" placeholder="Last Name" />
+      <ErrorMessage name="lastName" />
+
+      <Field name="address" placeholder="Address" />
+      <ErrorMessage name="address" />
+
+      <Field name="phoneNum" placeholder="Phone Number" />
+      <ErrorMessage name="phoneNum" />
+
+      <Field name="nickName" placeholder="NickName" />
+      <ErrorMessage name="nickName" />
+
+      <input type="submit" id="formSubmit" />
+      </Form>
+      
+    </Formik>
   );
 };
 export default FormTwo;

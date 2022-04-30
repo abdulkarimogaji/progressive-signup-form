@@ -110,20 +110,21 @@ const StartPage = () => {
                   </Button>
                 )}
                 {formId <= 4 && (
-                  <Button
-                    sx={{
-                      borderRadius: "20px",
-                      paddingX: "2rem",
-                    }}
-                    variant="contained"
-                    size="large"
-                    color="secondary"
-                    endIcon={<ArrowForward />}
-                    onClick={nextForm}
-                  >
-                    {" "}
-                    {formId === 4 ? "SignUp" : "Next"}
-                  </Button>
+                  <label htmlFor="formSubmit" className="btn">Next <ArrowForward /></label>
+                  // <Button
+                  //   sx={{
+                  //     borderRadius: "20px",
+                  //     paddingX: "2rem",
+                  //   }}
+                  //   variant="contained"
+                  //   size="large"
+                  //   color="secondary"
+                  //   endIcon={<ArrowForward />}
+                  //   onClick={nextForm}
+                  // >
+                  //   {" "}
+                  //   {formId === 4 ? "SignUp" : "Next"}
+                  // </Button>
                 )}
               </Stack>
             </Box>

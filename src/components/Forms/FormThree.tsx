@@ -3,11 +3,26 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../app/store";
 import ErrorBox from "../ErrorBox";
 import { setPassword, setPasswordErrs } from "../../features/user/userSlice";
+import { useSearchParams } from "react-router-dom";
+import { Formik, Field, Form, ErrorMessage } from "formik"
+import * as Yup from 'yup'
 
 
+
+const initialValues = {
+
+}
+const validationSchema = Yup.object({
+  password: Yup.string().required("THis field is requied").min(6),
+  password2: Yup.string().required("THis field is requied")
+})
 
 const FormThree = () => {
+  const [searchParams, setSearchParams] = useSearchParams()
 
+  const handleSubmit = () => {
+    setSearchParams({form_id:"4"})
+  }
   const password = useSelector((state: RootState) => state.user.password)
   const passwordErrs = useSelector((state: RootState) => state.user.loginErrors.password)
   const dispatch = useDispatch()
@@ -32,23 +47,15 @@ const FormThree = () => {
   }
 
   return (
-    <Box>
-      <Typography
-        variant="h5"
-        color="secondary"
-        fontWeight="bold"
-        textAlign="center"
-      >
-        Password
-      </Typography>
-      <Stack spacing={3} p={3}>
-      <Input type="password" placeholder="Password" onChange={handlePasswordChange}/>
-      <Input type="password" placeholder="Password Confirmation" onChange={handleConfirmation}/>
-      <ErrorBox validation={passwordErrs}/>
-
-      </Stack>
-
-    </Box>
+    <Formik onSubmit={handleSubmit} initialValues={initialValues} validationSchema={validationSchema}>
+      <Form>
+        <Field name="password" placeholder="password" type="password" />
+        <ErrorMessage name="password" />
+        <Field name="password2" placeholder="password confirmation" type="password" />
+        <ErrorMessage name="password2" />
+        <input type="submit" id="formSubmit" />
+      </Form>
+    </Formik>
   );
 };
 export default FormThree;
