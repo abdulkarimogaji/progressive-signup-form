@@ -1,16 +1,10 @@
 import { Box, Typography } from "@mui/material";
 
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, Field, ErrorMessage, FormikValues } from "formik";
 import * as Yup from "yup";
 
 import { useSearchParams } from "react-router-dom";
-const initialValues = {
-  firstName: "",
-  lastName: "",
-  Address: "",
-  nickName: "",
-  phoneNum: "",
-};
+
 
 const validationSchema = Yup.object({
   firstName: Yup.string().required("This field is required"),
@@ -21,10 +15,32 @@ const validationSchema = Yup.object({
 });
 
 const FormTwo = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
 
-  const handleSubmit = () => {
-    setSearchParams({ form_id: "3" });
+  const [searchParams, setSearchParams] = useSearchParams();
+  const prevParams = Object.fromEntries([...searchParams]);
+
+  const initialValues = {
+    firstName: searchParams.get("firstName") ?? '',
+    lastName: searchParams.get("lastName") ?? '',
+    Address: searchParams.get("address") ?? '',
+    nickName: searchParams.get("nickName") ?? '',
+    phoneNum: searchParams.get("phoneNum") ?? '',
+  };
+
+
+  const handleSubmit = (values: FormikValues) => {
+    setSearchParams({
+      ...prevParams,
+      form_id: "3",
+      firstName: values.firstName,
+      lastName: values.lastName,
+      address: values.address,
+      phoneNum: values.phoneNum,
+      nickname: values.nickName,
+    }, {replace: true});
+  };
+  const goToPrevious = () => {
+    setSearchParams({ ...prevParams, form_id: "1" }, { replace: true });
   };
 
   return (
@@ -38,6 +54,13 @@ const FormTwo = () => {
       >
         Personal Information
       </Typography>
+      <input
+        type="submit"
+        className="submit-hidden"
+        id="previousBtn"
+        onClick={goToPrevious}
+        value=""
+      />
       <Formik
         initialValues={initialValues}
         onSubmit={handleSubmit}

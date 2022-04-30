@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import { useSearchParams } from "react-router-dom";
+import { Navigate, useNavigate, useSearchParams } from "react-router-dom";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 
@@ -11,11 +11,15 @@ const validationSchema = Yup.object({
 
 const FormThree = () => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const prevParams = Object.fromEntries([...searchParams])
+  const navigate = useNavigate()
+  const goToPrevious = () => {
+    setSearchParams({...prevParams, form_id: '2'}, {replace: true})
+  }
 
   const handleSubmit = () => {
-    setSearchParams({ form_id: "4" });
-  };
-
+    navigate('/')
+  }
   return (
     <Box>
       <Typography
@@ -27,6 +31,7 @@ const FormThree = () => {
       >
         Setup Password
       </Typography>
+      <input type="submit" className="submit-hidden" id="previousBtn" onClick={goToPrevious} value="" />
       <Formik
         onSubmit={handleSubmit}
         initialValues={initialValues}
