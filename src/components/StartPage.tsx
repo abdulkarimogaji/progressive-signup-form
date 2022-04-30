@@ -1,59 +1,12 @@
 import { Box, Button, Stack, Paper, Grid } from "@mui/material";
 import { ArrowBack, ArrowForward } from "@mui/icons-material";
 import { FormOne, FormTwo, FormThree } from "./Forms";
-import { useNavigate, useSearchParams } from "react-router-dom";
 import { NotFound } from "./404";
-import { anyError } from "./Forms/validations";
-import { useSelector } from "react-redux";
-import { RootState } from "../app/store";
-
-
+import { useSearchParams } from "react-router-dom";
 
 const StartPage = () => {
-
-  const loginErrors = useSelector((state: RootState) => state.user.loginErrors)
-  // create states for each form
-
-
-  //get the formId passed as a query parameter
   const [searchParams, setSearchParams] = useSearchParams();
-  const navigate = useNavigate();
   const formId = parseInt(searchParams.get("form_id")!);
-
-  // function for advancing to the next form.. prevents advance when errors
-  const nextForm = () => {
-    switch (formId) {
-      case 1:
-        if (anyError(loginErrors.email)) {
-          alert("an error in input");
-          return;
-        }
-        break;
-      case 2:
-        if (
-          anyError(loginErrors.address) ||
-          anyError(loginErrors.firstName) ||
-          anyError(loginErrors.lastName) ||
-          anyError(loginErrors.phoneNum)
-        ) {
-          alert("an error in input");
-          return;
-        }
-        break;
-      case 3:
-        if (anyError(loginErrors.password)) {
-          alert("an error in input");
-          return;
-        }
-    }
-
-    if (formId === 4) {
-      navigate("/");
-      return;
-    } else {
-      setSearchParams({ form_id: (formId + 1).toString() });
-    }
-  };
 
   // select the correct form that should be passed in the jsx
   const getCurrentForm = () => {
@@ -63,9 +16,7 @@ const StartPage = () => {
       case 2:
         return <FormTwo />;
       case 3:
-        return (
-          <FormThree />
-        );
+        return <FormThree />;
       default:
         return <NotFound />;
     }
@@ -110,21 +61,9 @@ const StartPage = () => {
                   </Button>
                 )}
                 {formId <= 4 && (
-                  <label htmlFor="formSubmit" className="btn">Next <ArrowForward /></label>
-                  // <Button
-                  //   sx={{
-                  //     borderRadius: "20px",
-                  //     paddingX: "2rem",
-                  //   }}
-                  //   variant="contained"
-                  //   size="large"
-                  //   color="secondary"
-                  //   endIcon={<ArrowForward />}
-                  //   onClick={nextForm}
-                  // >
-                  //   {" "}
-                  //   {formId === 4 ? "SignUp" : "Next"}
-                  // </Button>
+                  <label htmlFor="formSubmit" className="btn">
+                    Next <ArrowForward />
+                  </label>
                 )}
               </Stack>
             </Box>
